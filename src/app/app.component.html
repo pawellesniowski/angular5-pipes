@@ -1,0 +1,32 @@
+<div class="container">
+  <div>
+    <input type="text" [(ngModel)]="searchTerm">
+    <hr>
+  </div>
+
+  <div>
+    <input type="text" [(ngModel)]="name">
+    <input type="text" [(ngModel)]="status">
+    <button (click)="onAddServer(name, status)">Add Server</button>
+    <hr>
+  </div>
+  
+
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let server of servers | filterPipe: searchTerm"
+          [ngClass]="getStatusClasses(server)">
+          <span
+            class="badge">
+            {{ server.status }}
+          </span>
+          <strong>{{ server.name | shorten:15:15 }}</strong> | {{ server.instanceType | uppercase }} | {{ server.started | date:'dd/MM/yyyy' }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
